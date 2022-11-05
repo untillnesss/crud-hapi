@@ -2,7 +2,7 @@
 
 //Import Hapi
 import Hapi from '@hapi/hapi';
-import bookController from './bookController.js';
+import bookController from './src/bookController.js';
 
 //Database configuration
 // const mongoose = require('mongoose');
