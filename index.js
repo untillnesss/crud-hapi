@@ -15,37 +15,28 @@ const init = async () => {
         }
     });
 
-    //Heading
     server.route({
         method: 'GET',
         path: '/books',
         handler: bookController.index
     });
 
-    //Create Note
     server.route({
         method: 'POST',
         path: '/books',
         handler: bookController.store
     });
 
-    //Get list of Notes and filter the list using query parameters
     server.route({
         method: 'GET',
         path: '/books/{id}',
         handler: bookController.show
     });
 
-    //Update Note
     server.route({
         method: 'PUT',
-        path: '/api/note/{id}',
-        handler: async (request, h) => {
-            let params = request.params.id;
-            let info = request.payload;
-            let infos = await Note.updateOne({ _id: params }, info).lean();
-            return h.response(infos);
-        }
+        path: '/books/{id}',
+        handler: bookController.update
     });
 
     //Delete Note

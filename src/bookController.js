@@ -13,12 +13,12 @@ const bookController = {
             let bookId = request.params.id;
             let existBook = Utils.getBookData();
 
-            const filterBook = existBook.find(book => book.id === bookId)
+            const findBook = existBook.find(book => book.id === bookId)
 
-            if (filterBook == null)
+            if (findBook == null)
                 return SendResponse.notFound(h, 'Buku tidak ditemukan')
 
-            return SendResponse.success(h, { book: filterBook })
+            return SendResponse.success(h, { book: findBook })
         } catch (error) {
             return SendResponse.notFound(h, 'Buku tidak ditemukan')
         }
@@ -53,6 +53,53 @@ const bookController = {
             console.log(error);
 
             return SendResponse.internalError(h, "Buku gagal ditambahkan")
+        }
+    },
+    update: async (request, h) => {
+
+        try {
+            let bookId = request.params.id;
+            const bookReq = request.payload
+
+            if (!bookReq.hasOwnProperty('name') || bookReq.name == null || bookReq.name == '')
+                return SendResponse.badRequest(h, "Gagal memperbarui buku. Mohon isi nama buku")
+
+            if (bookReq.readPage > bookReq.pageCount)
+                return SendResponse.badRequest(h, "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount")
+
+            let existBook = Utils.getBookData();
+
+            const findBook = existBook.find(book => book.id === bookId)
+
+            if (findBook == null)
+                return SendResponse.notFound(h, 'Gagal memperbarui buku. Id tidak ditemukan')
+
+            const updateBook = existBook.filter(book => book.id !== bookId)
+
+            const newBookData = {
+                id: bookId,
+                name: bookReq.name,
+                year: bookReq.year,
+                author: bookReq.author,
+                summary: bookReq.summary,
+                publisher: bookReq.publisher,
+                pageCount: bookReq.pageCount,
+                readPage: bookReq.readPage,
+                reading: bookReq.reading,
+                finished: bookReq.pageCount === bookReq.readPage,
+                insertedAt: findBook.insertedAt,
+                updatedAt: new Date
+            }
+
+            updateBook.push(newBookData)
+
+            Utils.saveUserData(updateBook)
+
+            return SendResponse.success(h, 'Buku berhasil diperbarui');
+        } catch (error) {
+            console.log(error);
+
+            return SendResponse.internalError(h, "Gagal memperbarui buku")
         }
     }
 }
