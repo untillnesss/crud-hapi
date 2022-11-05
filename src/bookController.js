@@ -8,6 +8,21 @@ const bookController = {
         let books = Utils.getBookData() ?? []
         return SendResponse.success(h, { books })
     },
+    show: async (request, h) => {
+        try {
+            let bookId = request.params.id;
+            let existBook = Utils.getBookData();
+
+            const filterBook = existBook.find(book => book.id === bookId)
+
+            if (filterBook == null)
+                return SendResponse.notFound(h, 'Buku tidak ditemukan')
+
+            return SendResponse.success(h, { book: filterBook })
+        } catch (error) {
+            return SendResponse.notFound(h, 'Buku tidak ditemukan')
+        }
+    },
     store: async (request, h) => {
 
         try {
