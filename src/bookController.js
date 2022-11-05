@@ -6,7 +6,15 @@ import { nanoid } from 'nanoid'
 const bookController = {
     index: async (request, h) => {
         let books = Utils.getBookData() ?? []
-        return SendResponse.success(h, { books })
+        let mappedBook = books.map((book) => {
+            return {
+                id: book.id,
+                name: book.name,
+                publisher: book.publisher
+            }
+        })
+
+        return SendResponse.success(h, { books: mappedBook})
     },
     show: async (request, h) => {
         try {
@@ -95,7 +103,7 @@ const bookController = {
 
             Utils.saveUserData(updateBook)
 
-            return SendResponse.success(h, 'Buku berhasil diperbarui');
+            return SendResponse.successMessage(h, 'Buku berhasil diperbarui');
         } catch (error) {
             console.log(error);
 

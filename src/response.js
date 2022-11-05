@@ -24,6 +24,12 @@ const SendResponse = {
             data,
         }).code(200)
     },
+    successMessage: (h, message) => {
+        return h.response({
+            status: "success",
+            message,
+        }).code(200)
+    },
     notFound: (h, message) => {
         return h.response({
             status: "fail",
