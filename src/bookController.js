@@ -101,6 +101,28 @@ const bookController = {
 
             return SendResponse.internalError(h, "Gagal memperbarui buku")
         }
+    },
+    delete: async (request, h) => {
+
+        try {
+            let bookId = request.params.id;
+            let existBook = Utils.getBookData();
+
+            const findBook = existBook.find(book => book.id === bookId)
+
+            if (findBook == null)
+                return SendResponse.notFound(h, 'Buku gagal dihapus. Id tidak ditemukan')
+
+            const updateBook = existBook.filter(book => book.id !== bookId)
+
+            Utils.saveUserData(updateBook)
+
+            return SendResponse.success(h, 'Buku berhasil dihapus');
+        } catch (error) {
+            console.log(error);
+
+            return SendResponse.internalError(h, "Buku gagal dihapus")
+        }
     }
 }
 
