@@ -5,7 +5,33 @@ import { nanoid } from 'nanoid'
 
 const bookController = {
     index: async (request, h) => {
+        let params = request.query
+
         let books = Utils.getBookData() ?? []
+
+        let filterName = params.name;
+        if (filterName != null && filterName != '') {
+            books = books.filter((el) => {
+                return el.name.toLowerCase().includes(filterName.toLowerCase())
+            })
+        }
+
+        let filterReading = params.reading;
+        if (filterReading != null && filterReading != '') {
+            books = books.filter((el) => {
+                let boolReading = filterReading == 1 ? true : false
+                return el.reading == boolReading
+            })
+        }
+
+        let filterFinished = params.finished;
+        if (filterFinished != null && filterFinished != '') {
+            books = books.filter((el) => {
+                let boolFinished = filterFinished == 1 ? true : false
+                return el.reading == boolFinished
+            })
+        }
+
         let mappedBook = books.map((book) => {
             return {
                 id: book.id,
@@ -125,7 +151,7 @@ const bookController = {
 
             Utils.saveUserData(updateBook)
 
-            return SendResponse.success(h, 'Buku berhasil dihapus');
+            return SendResponse.successMessage(h, 'Buku berhasil dihapus');
         } catch (error) {
             console.log(error);
 
