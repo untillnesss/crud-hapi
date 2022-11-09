@@ -14,7 +14,7 @@ const bookController = {
             }
         })
 
-        return SendResponse.success(h, { books: mappedBook})
+        return SendResponse.success(h, { books: mappedBook })
     },
     show: async (request, h) => {
         try {

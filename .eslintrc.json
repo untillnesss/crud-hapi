@@ -1,0 +1,21 @@
+{
+    "env": {
+        "commonjs": true,
+        "node": true
+    },
+    "extends": "airbnb",
+    "overrides": [],
+    "parserOptions": {
+        "ecmaVersion": 10,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
+    "rules": {
+        "camelcase": "warn",
+        "no-extra-semi": "off",
+        "semi": "error",
+        "indent": "off"
+    }
+}

@@ -1,41 +1,41 @@
 const SendResponse = {
     badRequest: (h, message) => {
         return h.response({
-            status: "fail",
+            status: 'fail',
             message: message,
-        }).code(400)
+        }).code(400);
     },
     internalError: (h, message) => {
         return h.response({
-            status: "error",
+            status: 'error',
             message: message,
-        }).code(500)
+        }).code(500);
     },
     created: (h, message, data) => {
         return h.response({
-            status: "success",
+            status: 'success',
             message: message,
             data,
-        }).code(201)
+        }).code(201);
     },
     success: (h, data) => {
         return h.response({
-            status: "success",
+            status: 'success',
             data,
-        }).code(200)
+        }).code(200);
     },
     successMessage: (h, message) => {
         return h.response({
-            status: "success",
+            status: 'success',
             message,
-        }).code(200)
+        }).code(200);
     },
     notFound: (h, message) => {
         return h.response({
-            status: "fail",
+            status: 'fail',
             message,
-        }).code(404)
-    }
-}
+        }).code(404);
+    },
+};
 
 export default SendResponse;

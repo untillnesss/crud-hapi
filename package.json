@@ -12,5 +12,9 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "nanoid": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-config-google": "^0.14.0"
   }
 }
