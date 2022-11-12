@@ -1,6 +1,6 @@
 
 import SendResponse from './response.js';
-import Utils from './Utils.js';
+import Utils from './utils.js';
 import { nanoid } from 'nanoid'
 
 const bookController = {
